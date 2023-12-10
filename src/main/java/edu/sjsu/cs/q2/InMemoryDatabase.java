@@ -2,6 +2,7 @@ package edu.sjsu.cs.q2;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.IntStream;
 
 /**
@@ -16,7 +17,7 @@ public class InMemoryDatabase {
 
     private static InMemoryDatabase instance = new InMemoryDatabase();
 
-    private Map<String, Integer> map = new HashMap<>();
+    private Map<String, Integer> map = new ConcurrentHashMap<>();
 
     public Integer get(String key) {
         return map.getOrDefault(key, -1);
