@@ -5,6 +5,9 @@ public class JobSeekerBot implements JobSeeker {
     private JobDashboard jobDashboard;
 
     public JobSeekerBot(JobDashboard jobDashboard, String name) {
+        if(jobDashboard == null) {
+            throw new RuntimeException("Dashboard is null");
+        }
         this.name = name;
         this.jobDashboard = jobDashboard;
         jobDashboard.registerObserver(this);

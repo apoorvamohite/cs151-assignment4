@@ -5,6 +5,9 @@ public class NewGradJobSeeker implements JobSeeker {
     private JobDashboard jobDashboard;
 
     public NewGradJobSeeker(JobDashboard jobDashboard, String name) {
+        if(jobDashboard == null) {
+            throw new RuntimeException("Dashboard is null");
+        }
         this.jobDashboard = jobDashboard;
         this.name = name;
         jobDashboard.registerObserver(this);

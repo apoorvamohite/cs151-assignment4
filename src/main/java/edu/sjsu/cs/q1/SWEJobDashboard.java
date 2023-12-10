@@ -8,11 +8,23 @@ public class SWEJobDashboard implements JobDashboard {
 
     @Override
     public void registerObserver(JobSeeker observer) {
+        if(observer == null) {
+            throw new RuntimeException("Observer cannot be null");
+        }
+        if(observers.contains(observer)) {
+            throw new RuntimeException("Already Observing");
+        }
         observers.add(observer);
     }
 
     @Override
     public void removeObserver(JobSeeker observer) {
+        if(observer == null) {
+            throw new RuntimeException("Observer cannot be null");
+        }
+        if(!observers.contains(observer)) {
+            throw new RuntimeException("Observer not found");
+        }
         observers.remove(observer);
     }
 
@@ -24,6 +36,9 @@ public class SWEJobDashboard implements JobDashboard {
     }
 
     public void postJob(JobPosting jobPosting) {
+        if(jobPosting == null) {
+            throw new RuntimeException("JobPosting cannot be null");
+        }
         System.out.println("Job Posted: " + jobPosting);
         notifyObservers(jobPosting);
     }

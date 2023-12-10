@@ -32,6 +32,11 @@ public class Q1Test {
         assertTrue(output.contains("Bot is applying for the job!"));
     }
 
+    @Test(expected = RuntimeException.class)
+    public void testJobSeekerBotApplicationNegative() {
+        bot = new JobSeekerBot(null, "Bot");
+    }
+
     @Test
     public void testNewGradJobSeekerApplication() {
         newGrad = new NewGradJobSeeker(jobDashboard, "NewGrad");
@@ -41,4 +46,51 @@ public class Q1Test {
         assertTrue(output.contains("NewGrad received notification: JobPosting{title='Entry Level Developer', location='Anywhere'}"));
         assertTrue(output.contains("NewGrad is applying for the job!"));
     }
+
+    @Test(expected = RuntimeException.class)
+    public void testNewGradJobSeekerApplicationNegative() {
+        newGrad = new NewGradJobSeeker(null, "NewGrad");
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testPostJobNegative() {
+        jobDashboard.postJob(null);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testRegisterObserverNegative() {
+        bot = new JobSeekerBot(jobDashboard, "Bot");
+        jobDashboard.registerObserver(bot);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testRegisterObserverNegativeWithNull() {
+        jobDashboard.registerObserver(null);
+    }
+
+    @Test()
+    public void testRemoveObserver() {
+        bot = new JobSeekerBot(jobDashboard, "Bot");
+        jobDashboard.removeObserver(bot);
+        boolean exception = false;
+        try {
+            jobDashboard.removeObserver(bot);
+        } catch (Exception ex) {
+            exception = true;
+        }
+        assertTrue(exception);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testRemoveObserverNegative() {
+        bot = new JobSeekerBot(jobDashboard, "Bot");
+        jobDashboard.removeObserver(bot);
+        jobDashboard.removeObserver(bot);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testRemoveObserverNegativeWithNull() {
+        jobDashboard.removeObserver(null);
+    }
+
 }
